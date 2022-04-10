@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USERNAME: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'db'
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./pgsql:/var/lib/postgresql/data
+
+  task-crud:
+    build: .
+    env_file:
+      - .env
+    command: yarn dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/usr/task-crud'
+    depends_on:
+      - db
