@@ -21,3 +21,12 @@ Utilize os seguintes comandos para rodar como DEV
 > `yarn` > `yarn dev`
 
 é necessário que haja um .ENV (Veja o exemplo na pasta raiz)
+
+# Rotas
+
+/tasks (GET)
+/tasks/1 (GET)
+/tasks/create (POST)
+/tasks/edit/1 (PUT)
+/tasks/finish/1 (PUT)
+/tasks/delete/1 (DELETE)
