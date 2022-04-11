@@ -14,6 +14,9 @@ const Database = new DataSource({
   entities: [path.join(__dirname, '../app/Models/*.ts')],
   synchronize: true,
   logging: false,
+  ssl: env.DB_SSL && {
+    rejectUnauthorized: false,
+  },
 })
 
 export default Database

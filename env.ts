@@ -10,6 +10,7 @@ export const schema = {
   DB_PASSWORD: String,
   DB_PORT: Number,
   DB_NAME: String,
+  DB_SSL: Boolean,
 }
 
 export let env: Env

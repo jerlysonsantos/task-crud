@@ -11,7 +11,7 @@ import Database from 'Config/database'
 import Exception, { ErrorHandling } from 'Lib/Exception'
 
 import Task from 'App/Models/Task'
-import { createValidator, editValidator } from 'App/Validations/TaskValidator'
+import { createValidator, editValidator } from 'App/Validators/TaskValidator'
 
 import { Request, Response, NextFunction } from 'express'
 
