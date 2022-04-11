@@ -16,13 +16,13 @@ export default class Task {
   })
   title: string
 
-  @Column('text')
+  @Column('text', { nullable: true })
   description: string
 
-  @Column()
+  @Column({ default: 'NEW' })
   status: string
 
-  @Column()
+  @Column({ nullable: true })
   finished_at: Date
 
   @UpdateDateColumn()

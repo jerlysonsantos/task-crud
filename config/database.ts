@@ -4,7 +4,7 @@ import { env, loadEnv } from 'Env'
 
 loadEnv()
 
-const AppDataSource = new DataSource({
+const Database = new DataSource({
   type: 'postgres',
   host: env.DB_HOST,
   port: env.DB_PORT,
@@ -16,4 +16,4 @@ const AppDataSource = new DataSource({
   logging: false,
 })
 
-export default AppDataSource
+export default Database

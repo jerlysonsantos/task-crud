@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@overnightjs/core": "^1.7.6",
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "module-alias": "^2.2.2",
