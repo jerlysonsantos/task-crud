@@ -11,7 +11,7 @@ const Database = new DataSource({
   username: env.DB_USERNAME,
   password: env.DB_PASSWORD,
   database: env.DB_NAME,
-  entities: [path.join(__dirname, '../app/Models/*.ts')],
+  entities: [path.join(__dirname, '../app/Models/*{.ts,.js}')],
   synchronize: true,
   logging: false,
   ssl: env.DB_SSL && {
