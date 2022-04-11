@@ -24,9 +24,9 @@ Utilize os seguintes comandos para rodar como DEV
 
 # Rotas
 
-/tasks (GET)
-/tasks/1 (GET)
-/tasks/create (POST)
-/tasks/edit/1 (PUT)
-/tasks/finish/1 (PUT)
-/tasks/delete/1 (DELETE)
+> /tasks (GET)
+> /tasks/1 (GET)
+> /tasks/create (POST)
+> /tasks/edit/1 (PUT)
+> /tasks/finish/1 (PUT)
+> /tasks/delete/1 (DELETE)
