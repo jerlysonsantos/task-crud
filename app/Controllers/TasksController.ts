@@ -5,11 +5,13 @@ import {
   Post,
   Put,
   Delete,
+  Middleware,
 } from '@overnightjs/core'
 import Database from 'Config/database'
 import Exception, { ErrorHandling } from 'Lib/Exception'
 
 import Task from 'App/Models/Task'
+import { createValidator, editValidator } from 'App/Validations/TaskValidator'
 
 import { Request, Response, NextFunction } from 'express'
 
@@ -42,7 +44,7 @@ class TaskController {
         },
       })
 
-      if (!task) throw new Exception(404, 'Task Not Found', 'E_NOT_FOUND')
+      if (!task) throw new Exception(404, 'Task not found', 'E_NOT_FOUND')
 
       _res.status(200).send({ task })
     } catch (error) {
@@ -51,6 +53,7 @@ class TaskController {
   }
 
   @Post('create')
+  @Middleware([createValidator])
   public async create(_req: Request, _res: Response, next: NextFunction) {
     try {
       const { title, description } = _req.body
@@ -75,6 +78,7 @@ class TaskController {
   }
 
   @Put('edit/:id')
+  @Middleware([editValidator])
   public async update(_req: Request, _res: Response, next: NextFunction) {
     try {
       const {
@@ -82,14 +86,25 @@ class TaskController {
         params: { id },
       } = _req
 
+      const taskRepository = Database.getRepository(Task)
+
+      const task = await taskRepository.findOne({
+        where: {
+          id: Number(id),
+        },
+      })
+
+      if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
+
       const taskFactory = new Task()
 
       if (title) taskFactory.title = title
       if (description) taskFactory.description = description
       if (status) taskFactory.status = status
 
-      await Database.createQueryBuilder()
-        .update(Task)
+      await taskRepository
+        .createQueryBuilder()
+        .update()
         .set(taskFactory)
         .where('id = :id', { id })
         .execute()
@@ -107,8 +122,19 @@ class TaskController {
         params: { id },
       } = _req
 
-      const task = await Database.createQueryBuilder()
-        .update(Task)
+      const taskRepository = Database.getRepository(Task)
+
+      const task = await taskRepository.findOne({
+        where: {
+          id: Number(id),
+        },
+      })
+
+      if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
+
+      await taskRepository
+        .createQueryBuilder()
+        .update()
         .set({ status: 'FINISHED', finished_at: new Date() })
         .where('id = :id', { id })
         .execute()
@@ -124,9 +150,19 @@ class TaskController {
     try {
       const { id } = _req.params
 
-      await Database.createQueryBuilder()
+      const taskRepository = Database.getRepository(Task)
+
+      const task = await taskRepository.findOne({
+        where: {
+          id: Number(id),
+        },
+      })
+
+      if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
+
+      await taskRepository
+        .createQueryBuilder()
         .delete()
-        .from(Task)
         .where('id = :id', { id })
         .execute()
 

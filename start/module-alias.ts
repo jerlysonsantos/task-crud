@@ -6,6 +6,6 @@ const files = path.resolve(__dirname, '../')
 moduleAlias.addAliases({
   App: path.join(files, 'app'),
   Lib: path.join(files, 'lib'),
-  Env: path.join(files, 'env.ts'),
+  Env: path.join(files, 'env'),
   Config: path.join(files, 'config'),
 })

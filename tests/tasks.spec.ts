@@ -3,7 +3,7 @@ import { test } from '@japa/runner'
 test.group('Task', () => {
   test('task create', async ({ assert, client }) => {
     const response = await client.post('/tasks/create').json({
-      title: 'Teste',
+      title: 'Task',
       description: 'Teste',
     })
 
@@ -13,8 +13,8 @@ test.group('Task', () => {
   })
 
   test('edit task', async ({ assert, client }) => {
-    const response = await client.put('/tasks/edit/1').json({
-      title: 'Teste',
+    const response = await client.put('/tasks/edit/8').json({
+      title: 'Task 232',
       description: 'Teste',
       status: 'WORKING',
     })
@@ -25,7 +25,7 @@ test.group('Task', () => {
   })
 
   test('finish task', async ({ assert, client }) => {
-    const response = await client.put('/tasks/finish/1')
+    const response = await client.put('/tasks/finish/8')
 
     console.log(response.body())
 
@@ -33,7 +33,7 @@ test.group('Task', () => {
   })
 
   test('delete task', async ({ assert, client }) => {
-    const response = await client.delete('/tasks/delete/1')
+    const response = await client.delete('/tasks/delete/14')
 
     console.log(response.body())
 
