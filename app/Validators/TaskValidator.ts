@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+import { ValidationErrors, Rules } from 'validatorjs'
 
 import Validator from 'Lib/Validator'
 
@@ -7,12 +8,12 @@ export function createValidator(
   _res: Response,
   next: NextFunction,
 ) {
-  const rules = {
+  const rules: Rules = {
     title: 'required|string',
     description: 'string|max:500',
   }
 
-  Validator(_req.body, rules, (err: any, status: boolean) => {
+  Validator(_req.body, rules, (err: ValidationErrors, status: boolean) => {
     if (!status) {
       _res.status(400).send({
         code: 'E_VALIDATE',
@@ -30,13 +31,13 @@ export function editValidator(
   _res: Response,
   next: NextFunction,
 ) {
-  const rules = {
+  const rules: Rules = {
     title: 'string',
     description: 'string|max:500',
     status: 'string',
   }
 
-  Validator(_req.body, rules, (err: any, status: boolean) => {
+  Validator(_req.body, rules, (err: ValidationErrors, status: boolean) => {
     if (!status) {
       _res.status(400).send({
         code: 'E_VALIDATE',

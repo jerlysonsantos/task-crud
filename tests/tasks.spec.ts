@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 
 test.group('Task', () => {
-  test('task create', async ({ assert, client }) => {
+  test('create task', async ({ assert, client }) => {
     const response = await client.post('/tasks/create').json({
       title: 'Task',
       description: 'teste',
@@ -12,8 +12,22 @@ test.group('Task', () => {
     assert.equal(response.status(), 200)
   })
 
+  test('get task', async ({ assert, client }) => {
+    const response = await client.get('/tasks/1')
+    console.log(response.body())
+
+    assert.equal(response.status(), 200)
+  })
+
+  test('get tasks', async ({ assert, client }) => {
+    const response = await client.get('/tasks')
+    console.log(response.body())
+
+    assert.equal(response.status(), 200)
+  })
+
   test('edit task', async ({ assert, client }) => {
-    const response = await client.put('/tasks/edit/8').json({
+    const response = await client.put('/tasks/edit/1').json({
       title: 'Task 232',
       description: 'Teste',
       status: 'WORKING',
@@ -25,7 +39,7 @@ test.group('Task', () => {
   })
 
   test('finish task', async ({ assert, client }) => {
-    const response = await client.put('/tasks/finish/8')
+    const response = await client.put('/tasks/finish/1')
 
     console.log(response.body())
 
@@ -33,7 +47,7 @@ test.group('Task', () => {
   })
 
   test('delete task', async ({ assert, client }) => {
-    const response = await client.delete('/tasks/delete/14')
+    const response = await client.delete('/tasks/delete/1')
 
     console.log(response.body())
 

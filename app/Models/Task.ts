@@ -9,7 +9,7 @@ import {
 export enum Status {
   NEW = 'new',
   WORKING = 'working',
-  STOPED = 'stoped',
+  STOPPED = 'stopped',
   FINISHED = 'finished',
 }
 

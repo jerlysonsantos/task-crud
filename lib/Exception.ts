@@ -1,11 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 
-export interface Error {
-  statusCode: number
-  message: string
-  code: string
-}
-
 export default class Exception extends Error {
   public statusCode: number
   public code: string
@@ -19,7 +13,7 @@ export default class Exception extends Error {
 }
 
 export const ErrorHandling = (
-  err: Error,
+  err: Exception,
   _req: Request,
   _res: Response,
   _next: NextFunction,
