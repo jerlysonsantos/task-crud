@@ -133,7 +133,7 @@ class TaskController {
       if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
 
       if (task.status === Status.FINISHED)
-        throw new Exception(400, 'Task has ready done.', 'E_VALIDATION')
+        throw new Exception(400, 'Task has already done.', 'E_VALIDATION')
 
       await taskRepository
         .createQueryBuilder()
