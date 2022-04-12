@@ -94,7 +94,7 @@ class TaskController {
         },
       })
 
-      if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
+      if (!task) throw new Exception(404, 'Task not found.', 'E_NOT_FOUND')
 
       const taskFactory = new Task()
 
@@ -133,7 +133,7 @@ class TaskController {
         },
       })
 
-      if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
+      if (!task) throw new Exception(404, 'Task not found.', 'E_NOT_FOUND')
 
       if (task.status === Status.FINISHED)
         throw new Exception(400, 'Task has already done.', 'E_VALIDATION')
@@ -164,7 +164,7 @@ class TaskController {
         },
       })
 
-      if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
+      if (!task) throw new Exception(404, 'Task not found.', 'E_NOT_FOUND')
 
       await taskRepository
         .createQueryBuilder()
