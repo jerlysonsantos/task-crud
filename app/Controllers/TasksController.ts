@@ -100,7 +100,10 @@ class TaskController {
 
       if (title) taskFactory.title = title
       if (description) taskFactory.description = description
-      if (status) taskFactory.status = Status[status]
+      if (status) {
+        taskFactory.status = Status[status]
+        taskFactory.finished_at = null
+      }
 
       await taskRepository
         .createQueryBuilder()
