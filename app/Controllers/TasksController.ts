@@ -10,7 +10,7 @@ import {
 import Database from 'Config/database'
 import Exception, { ErrorHandling } from 'Lib/Exception'
 
-import Task from 'App/Models/Task'
+import Task, { Status } from 'App/Models/Task'
 import { createValidator, editValidator } from 'App/Validators/TaskValidator'
 
 import { Request, Response, NextFunction } from 'express'
@@ -100,7 +100,7 @@ class TaskController {
 
       if (title) taskFactory.title = title
       if (description) taskFactory.description = description
-      if (status) taskFactory.status = status
+      if (status) taskFactory.status = Status[status]
 
       await taskRepository
         .createQueryBuilder()
@@ -132,10 +132,13 @@ class TaskController {
 
       if (!task) throw new Exception(400, 'Task not found.', 'E_NOT_FOUND')
 
+      if (task.status === Status.FINISHED)
+        throw new Exception(400, 'Task has ready done.', 'E_VALIDATION')
+
       await taskRepository
         .createQueryBuilder()
         .update()
-        .set({ status: 'FINISHED', finished_at: new Date() })
+        .set({ status: Status.FINISHED, finished_at: new Date() })
         .where('id = :id', { id })
         .execute()
 

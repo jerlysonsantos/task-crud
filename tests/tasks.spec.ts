@@ -4,7 +4,7 @@ test.group('Task', () => {
   test('task create', async ({ assert, client }) => {
     const response = await client.post('/tasks/create').json({
       title: 'Task',
-      description: 'Teste',
+      description: 'teste',
     })
 
     console.log(response.body())

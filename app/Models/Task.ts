@@ -6,6 +6,13 @@ import {
   CreateDateColumn,
 } from 'typeorm'
 
+export enum Status {
+  NEW = 'new',
+  WORKING = 'working',
+  STOPED = 'stoped',
+  FINISHED = 'finished',
+}
+
 @Entity()
 export default class Task {
   @PrimaryGeneratedColumn()
@@ -16,11 +23,11 @@ export default class Task {
   })
   title: string
 
-  @Column('text', { nullable: true })
+  @Column({ nullable: true, length: 500 })
   description: string
 
-  @Column({ default: 'NEW' })
-  status: string
+  @Column({ enum: Status, default: Status.NEW })
+  status: Status
 
   @Column({ nullable: true })
   finished_at: Date

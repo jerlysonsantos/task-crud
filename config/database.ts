@@ -6,6 +6,7 @@ loadEnv()
 
 const Database = new DataSource({
   type: 'postgres',
+  url: env.DATABASE_URL,
   host: env.DB_HOST,
   port: env.DB_PORT,
   username: env.DB_USERNAME,

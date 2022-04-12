@@ -1,22 +1,28 @@
 import { Request, Response, NextFunction } from 'express'
-import Exception from 'Lib/Exception'
+
+import Validator from 'Lib/Validator'
 
 export function createValidator(
   _req: Request,
   _res: Response,
   next: NextFunction,
 ) {
-  try {
-    const { title } = _req.body
-
-    if (!title) throw new Exception(400, 'title is required.', 'E_VALIDATE')
-    if (typeof title !== 'string')
-      throw new Exception(400, 'title must be string.', 'E_VALIDATE')
-
-    next()
-  } catch (error) {
-    next(error)
+  const rules = {
+    title: 'required|string',
+    description: 'string|max:500',
   }
+
+  Validator(_req.body, rules, (err: any, status: boolean) => {
+    if (!status) {
+      _res.status(400).send({
+        code: 'E_VALIDATE',
+        message: 'Validation failed',
+        data: err,
+      })
+    } else {
+      next()
+    }
+  })
 }
 
 export function editValidator(
@@ -24,20 +30,21 @@ export function editValidator(
   _res: Response,
   next: NextFunction,
 ) {
-  try {
-    const { title, description, status } = _req.body
-
-    if (typeof title !== 'string')
-      throw new Exception(400, 'title must be string.', 'E_VALIDATE')
-
-    if (typeof description !== 'string')
-      throw new Exception(400, 'description must be string.', 'E_VALIDATE')
-
-    if (typeof status !== 'string')
-      throw new Exception(400, 'status must be string.', 'E_VALIDATE')
-
-    next()
-  } catch (error) {
-    next(error)
+  const rules = {
+    title: 'string',
+    description: 'string|max:500',
+    status: 'string',
   }
+
+  Validator(_req.body, rules, (err: any, status: boolean) => {
+    if (!status) {
+      _res.status(400).send({
+        code: 'E_VALIDATE',
+        message: 'Validation failed',
+        data: err,
+      })
+    } else {
+      next()
+    }
+  })
 }
